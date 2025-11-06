@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Faculty - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4 class="mb-0">
+                    <i class="fas fa-user-edit text-warning"></i> Edit Faculty
+                </h4>
+                <p class="mb-0 mt-2">Update faculty information</p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="faculty_id" class="form-label">
+                            <i class="fas fa-id-card"></i> Faculty ID
+                        </label>
+                        <input type="text" class="form-control" id="faculty_id" name="faculty_id" 
+                               value="{{ faculty.faculty_id }}" readonly>
+                        <div class="form-text text-muted">Faculty ID cannot be changed</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-user"></i> Full Name
+                        </label>
+                        <input type="text" class="form-control" id="name" name="name" 
+                               value="{{ faculty.name }}" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="department" class="form-label">
+                            <i class="fas fa-building"></i> Department
+                        </label>
+                        <select class="form-select" id="department" name="department" required>
+                            <option value="">Select Department</option>
+                            <option value="Computer Science" {% if faculty.department == 'Computer Science' %}selected{% endif %}>Computer Science</option>
+                            <option value="Mathematics" {% if faculty.department == 'Mathematics' %}selected{% endif %}>Mathematics</option>
+                            <option value="Physics" {% if faculty.department == 'Physics' %}selected{% endif %}>Physics</option>
+                            <option value="Chemistry" {% if faculty.department == 'Chemistry' %}selected{% endif %}>Chemistry</option>
+                            <option value="Biology" {% if faculty.department == 'Biology' %}selected{% endif %}>Biology</option>
+                            <option value="English" {% if faculty.department == 'English' %}selected{% endif %}>English</option>
+                            <option value="History" {% if faculty.department == 'History' %}selected{% endif %}>History</option>
+                            <option value="Economics" {% if faculty.department == 'Economics' %}selected{% endif %}>Economics</option>
+                            <option value="Management" {% if faculty.department == 'Management' %}selected{% endif %}>Management</option>
+                            <option value="Engineering" {% if faculty.department == 'Engineering' %}selected{% endif %}>Engineering</option>
+                            <option value="Other" {% if faculty.department == 'Other' %}selected{% endif %}>Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-warning btn-lg">
+                            <i class="fas fa-save"></i> Update Faculty
+                        </button>
+                        <a href="{{ url_for('manage_faculty') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to Faculty List
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Faculty Info -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6><i class="fas fa-info-circle"></i> Faculty Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <p class="mb-2">
+                            <strong>Current Department:</strong><br>
+                            <span class="badge bg-success">{{ faculty.department or 'General' }}</span>
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p class="mb-2">
+                            <strong>Faculty ID:</strong><br>
+                            <span class="text-success">{{ faculty.faculty_id }}</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info mt-3">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    <strong>Note:</strong> Password changes must be handled separately for security reasons. Contact the faculty member to reset their password if needed.
+                </div>
+                
+                <div class="alert alert-warning mt-2">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Faculty Permissions:</strong> This faculty member can approve/reject student pass requests and monitor attendance records.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

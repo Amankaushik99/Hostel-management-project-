@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Hostel Management{% endblock %}
+
+{% block content %}
+<div class="dashboard-header text-center">
+    <div class="container">
+        <h2 class="mb-0">
+            <i class="fas fa-shield-alt me-3"></i>Admin Dashboard
+        </h2>
+        <p class="mb-0 mt-2">Welcome, {{ session.user_name }}! Manage the entire hostel system.</p>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                <h3 class="text-white">{{ student_count }}</h3>
+                <p class="text-muted">Total Students</p>
+                <a href="{{ url_for('manage_students') }}" class="btn btn-primary">
+                    <i class="fas fa-cog"></i> Manage
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-chalkboard-teacher fa-3x text-success mb-3"></i>
+                <h3 class="text-white">{{ faculty_count }}</h3>
+                <p class="text-muted">Total Faculty</p>
+                <a href="{{ url_for('manage_faculty') }}" class="btn btn-success">
+                    <i class="fas fa-cog"></i> Manage
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-3">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-clock fa-3x text-warning mb-3"></i>
+                <h3 class="text-white">{{ pending_requests }}</h3>
+                <p class="text-muted">Pending Requests</p>
+                <a href="{{ url_for('faculty_dashboard') }}" class="btn btn-warning">
+                    <i class="fas fa-eye"></i> View
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-user-plus"></i> Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-3">
+                    <a href="{{ url_for('add_faculty') }}" class="btn btn-success btn-lg">
+                        <i class="fas fa-plus-circle me-2"></i>Add New Faculty
+                    </a>
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-user-graduate me-2"></i>Register Student
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-chart-bar"></i> System Overview</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Students Registered</span>
+                        <span class="badge bg-primary">{{ student_count }}</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Faculty Members</span>
+                        <span class="badge bg-success">{{ faculty_count }}</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Pending Approvals</span>
+                        <span class="badge bg-warning">{{ pending_requests }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login - Hostel Management{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4 class="mb-0">
+                    <i class="fas fa-shield-alt text-danger"></i> Admin Login
+                </h4>
+                <p class="mb-0 mt-2">Secure administrator access</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST">
+                    <div class="mb-4">
+                        <label for="user_id" class="form-label">
+                            <i class="fas fa-id-card"></i> Admin ID
+                        </label>
+                        <input type="text" class="form-control" id="user_id" name="user_id" 
+                               placeholder="Enter your Admin ID" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <input type="password" class="form-control" id="password" name="password" 
+                               placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="d-grid mb-4">
+                        <button type="submit" class="btn btn-danger btn-lg">
+                            <i class="fas fa-sign-in-alt"></i> Sign In as Admin
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="text-center">
+                    <div class="mb-3">
+                        <a href="{{ url_for('student_login') }}" class="text-primary me-3">Student Login</a>
+                        <a href="{{ url_for('faculty_login') }}" class="text-success">Faculty Login</a>
+                    </div>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4" style="background: rgba(220, 53, 69, 0.1); border: 1px solid rgba(220, 53, 69, 0.3);">
+            <div class="card-body text-center">
+                <h6 class="text-danger mb-3">
+                    <i class="fas fa-exclamation-triangle"></i> Administrator Access Only
+                </h6>
+                <p class="text-white small mb-2">
+                    This area is restricted to authorized administrators only.
+                </p>
+                <p class="text-muted small mb-0">
+                    Unauthorized access attempts are logged and monitored.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

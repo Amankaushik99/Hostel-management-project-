@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Faculty - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="dashboard-header text-center">
+    <div class="container">
+        <h2 class="mb-0">
+            <i class="fas fa-chalkboard-teacher me-3"></i>Manage Faculty
+        </h2>
+        <p class="mb-0 mt-2">Add or remove faculty members</p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-list"></i> All Faculty Members</h5>
+                <a href="{{ url_for('add_faculty') }}" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Add New Faculty
+                </a>
+            </div>
+            <div class="card-body">
+                {% if faculty %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Faculty ID</th>
+                                    <th>Name</th>
+                                    <th>Department</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for member in faculty %}
+                                <tr>
+                                    <td><strong>{{ member.faculty_id }}</strong></td>
+                                    <td>{{ member.name }}</td>
+                                    <td>
+                                        <span class="badge bg-success">{{ member.department or 'General' }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ url_for('edit_faculty', faculty_id=member.faculty_id) }}" 
+                                               class="btn btn-sm btn-warning" title="Edit Faculty">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{{ url_for('delete_faculty', faculty_id=member.faculty_id) }}" 
+                                               class="btn btn-sm btn-danger" title="Remove Faculty"
+                                               onclick="return confirm('Are you sure you want to remove {{ member.name }} from the faculty?\\n\\nThis action cannot be undone!')">
+                                                <i class="fas fa-user-minus"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-chalkboard-teacher fa-3x text-muted mb-3"></i>
+                        <h6 class="text-muted mb-3">No faculty members registered</h6>
+                        <a href="{{ url_for('add_faculty') }}" class="btn btn-success">
+                            <i class="fas fa-plus-circle me-2"></i>Add First Faculty Member
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Faculty Statistics -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h6><i class="fas fa-chart-pie"></i> Faculty Statistics</h6>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span>Total Faculty Members</span>
+                        <span class="badge bg-primary">{{ faculty|length }}</span>
+                    </div>
+                </div>
+                {% if faculty %}
+                    {% set departments = faculty|groupby('department') %}
+                    {% for department, members in departments %}
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>{{ department or 'General' }}</span>
+                            <span class="badge bg-success">{{ members|list|length }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h6><i class="fas fa-info-circle"></i> Faculty Management Guide</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-plus text-success me-2"></i>
+                        <strong>Add Faculty:</strong> Create new faculty accounts with department assignment
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-edit text-warning me-2"></i>
+                        <strong>Edit Faculty:</strong> Modify faculty name and department information
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-user-minus text-danger me-2"></i>
+                        <strong>Remove Faculty:</strong> Permanently remove faculty access to the system
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-shield-alt text-primary me-2"></i>
+                        <strong>Permissions:</strong> Faculty can approve/reject student pass requests
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

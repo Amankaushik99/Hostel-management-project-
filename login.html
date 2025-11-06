@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Hostel Management{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4 class="mb-0">
+                    <i class="fas fa-sign-in-alt"></i> Welcome Back
+                </h4>
+                <p class="mb-0 mt-2">Sign in to your account</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST">
+                    <div class="mb-4">
+                        <label for="user_type" class="form-label">
+                            <i class="fas fa-users"></i> User Type
+                        </label>
+                        <select class="form-select" id="user_type" name="user_type" required>
+                            <option value="">Choose your role...</option>
+                            <option value="student">Student</option>
+                            <option value="faculty">Faculty</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="user_id" class="form-label">
+                            <i class="fas fa-id-card"></i> User ID
+                        </label>
+                        <input type="text" class="form-control" id="user_id" name="user_id" 
+                               placeholder="Enter your ID" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <input type="password" class="form-control" id="password" name="password" 
+                               placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="d-grid mb-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="text-center">
+                    <div class="mb-3">
+                        <span class="text-muted">Don't have an account?</span>
+                        <a href="{{ url_for('register') }}">Register here</a>
+                    </div>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4" style="background: rgba(255, 255, 255, 0.1);">
+            <div class="card-body text-center">
+                <h6 class="text-white mb-3">
+                    <i class="fas fa-info-circle"></i> Demo Credentials
+                </h6>
+                <div class="row text-white small">
+                    <div class="col-4">
+                        <strong>Students:</strong><br>
+                        STU001 / password123<br>
+                        STU002 / password123
+                    </div>
+                    <div class="col-4">
+                        <strong>Faculty:</strong><br>
+                        FAC001 / faculty123<br>
+                        FAC002 / faculty123
+                    </div>
+                    <div class="col-4">
+                        <strong>Admin:</strong><br>
+                        ADM001 / admin123
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

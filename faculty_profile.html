@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Faculty Profile - Hostel Management{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4 class="mb-0">
+                    <i class="fas fa-user-circle"></i> Faculty Profile
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="profile-avatar">
+                            <i class="fas fa-chalkboard-teacher fa-5x text-success mb-3"></i>
+                            <h5 class="text-white">{{ faculty.name }}</h5>
+                            <span class="badge bg-success">Faculty Member</span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-8">
+                        <div class="profile-details">
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Faculty ID:</strong></label>
+                                <p class="text-white">{{ faculty.faculty_id }}</p>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Name:</strong></label>
+                                <p class="text-white">{{ faculty.name }}</p>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Department:</strong></label>
+                                <p class="text-white">
+                                    <span class="badge bg-success">{{ faculty.department or 'General' }}</span>
+                                </p>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Role:</strong></label>
+                                <p class="text-white">
+                                    <span class="badge bg-success">Faculty Member</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr class="my-4">
+                
+                <div class="text-center">
+                    <a href="{{ url_for('faculty_dashboard') }}" class="btn btn-success me-2">
+                        <i class="fas fa-tachometer-alt"></i> Back to Dashboard
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="btn btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Faculty Responsibilities Card -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-tasks"></i> Your Responsibilities</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Review and approve student pass requests
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Monitor daily attendance records
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Ensure student welfare and safety
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Maintain hostel discipline
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Handle student queries and concerns
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Generate attendance reports
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contact Information -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6><i class="fas fa-info-circle"></i> Important Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    <strong>Profile Updates:</strong> If you need to update your profile information (name, department), please contact the system administrator.
+                </div>
+                <div class="alert alert-warning">
+                    <i class="fas fa-key me-2"></i>
+                    <strong>Password Security:</strong> For password changes or security concerns, please contact the administrator immediately.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

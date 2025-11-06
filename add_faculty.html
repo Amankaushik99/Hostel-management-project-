@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Add Faculty - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4 class="mb-0">
+                    <i class="fas fa-user-plus"></i> Add New Faculty
+                </h4>
+                <p class="mb-0 mt-2">Create a new faculty account</p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="faculty_id" class="form-label">
+                            <i class="fas fa-id-card"></i> Faculty ID
+                        </label>
+                        <input type="text" class="form-control" id="faculty_id" name="faculty_id" 
+                               placeholder="e.g., FAC003" required>
+                        <div class="form-text text-muted">Unique identifier for the faculty member</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-user"></i> Full Name
+                        </label>
+                        <input type="text" class="form-control" id="name" name="name" 
+                               placeholder="Enter full name" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="department" class="form-label">
+                            <i class="fas fa-building"></i> Department
+                        </label>
+                        <select class="form-select" id="department" name="department" required>
+                            <option value="">Select Department</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="Biology">Biology</option>
+                            <option value="English">English</option>
+                            <option value="History">History</option>
+                            <option value="Economics">Economics</option>
+                            <option value="Management">Management</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <input type="password" class="form-control" id="password" name="password" 
+                               placeholder="Create a secure password" required>
+                        <div class="form-text text-muted">Faculty will use this password to login</div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="fas fa-plus-circle"></i> Add Faculty Member
+                        </button>
+                        <a href="{{ url_for('manage_faculty') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to Faculty List
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Faculty Permissions Info -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6><i class="fas fa-info-circle"></i> Faculty Permissions</h6>
+            </div>
+            <div class="card-body">
+                <p class="text-muted mb-2">New faculty members will have access to:</p>
+                <ul class="list-unstyled text-white">
+                    <li class="mb-1">
+                        <i class="fas fa-check text-success me-2"></i>
+                        View and approve/reject student pass requests
+                    </li>
+                    <li class="mb-1">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Monitor daily attendance records
+                    </li>
+                    <li class="mb-1">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Access faculty dashboard and reports
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

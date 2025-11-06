@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard - Hostel Management{% endblock %}
+
+{% block content %}
+<div class="student-dashboard-header dashboard-header text-center">
+    <div class="dashboard-container container">
+        <h2 class="dashboard-title mb-0">
+            <i class="dashboard-icon fas fa-tachometer-alt me-3"></i>Student Dashboard
+        </h2>
+        <p class="welcome-message mb-0 mt-2">Welcome back, {{ session.user_name }}!</p>
+    </div>
+</div>
+
+<div class="dashboard-content row">
+    <!-- Quick Actions -->
+    <div class="quick-actions-section col-md-4 mb-4">
+        <div class="quick-actions-card card">
+            <div class="quick-actions-header card-header">
+                <h5 class="quick-actions-title mb-0">
+                    <i class="quick-actions-icon fas fa-bolt me-2"></i>Quick Actions
+                </h5>
+            </div>
+            <div class="quick-actions-body card-body">
+                <div class="action-buttons d-grid gap-3">
+                    <a href="{{ url_for('request_pass') }}" class="request-pass-button btn btn-primary btn-lg">
+                        <i class="request-pass-icon fas fa-paper-plane me-2"></i>Request Pass
+                    </a>
+                    <a href="{{ url_for('mark_attendance') }}" class="mark-attendance-button btn btn-success btn-lg">
+                        <i class="attendance-icon fas fa-check-circle me-2"></i>Mark Attendance
+                    </a>
+                </div>
+                
+                <div class="quick-tip-card mt-4 p-3 rounded" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">
+                    <div class="quick-tip-content text-center">
+                        <i class="tip-icon fas fa-info-circle mb-2"></i>
+                        <h6 class="tip-title mb-1">Quick Tip</h6>
+                        <small class="tip-text">Mark your attendance daily to maintain good records!</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Today's Attendance -->
+    <div class="attendance-section col-md-8 mb-4">
+        <div class="attendance-card card">
+            <div class="attendance-header card-header">
+                <h5 class="attendance-title mb-0">
+                    <i class="attendance-header-icon fas fa-calendar-day me-2"></i>Today's Attendance
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if attendance %}
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="p-3 rounded" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-sign-in-alt fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">Check-in Time</h6>
+                                        <p class="mb-0">
+                                            {% if attendance.check_in_time %}
+                                                {{ attendance.check_in_time }}
+                                            {% else %}
+                                                Not marked
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 rounded" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-sign-out-alt fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="mb-1">Check-out Time</h6>
+                                        <p class="mb-0">
+                                            {% if attendance.check_out_time %}
+                                                {{ attendance.check_out_time }}
+                                            {% else %}
+                                                Not marked
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <span class="badge bg-success fs-6 px-3 py-2">
+                            <i class="fas fa-check-circle me-2"></i>{{ attendance.status or 'Present' }}
+                        </span>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                        <h6 class="text-muted mb-3">No attendance marked for today</h6>
+                        <a href="{{ url_for('mark_attendance') }}" class="btn btn-success btn-lg">
+                            <i class="fas fa-plus-circle me-2"></i>Mark Check-in Now
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pass Requests -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-list"></i> My Pass Requests</h5>
+            </div>
+            <div class="card-body">
+                {% if pass_requests %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Leave Type</th>
+                                    <th>Reason</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>Status</th>
+                                    <th>Request Date</th>
+                                    <th>Approved By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for request in pass_requests %}
+                                <tr>
+                                    <td>
+                                        {% if request.leave_type == 'medical' %}
+                                            <i class="fas fa-user-md text-danger me-2"></i>Medical
+                                        {% elif request.leave_type == 'emergency' %}
+                                            <i class="fas fa-exclamation-triangle text-warning me-2"></i>Emergency
+                                        {% elif request.leave_type == 'family' %}
+                                            <i class="fas fa-home text-info me-2"></i>Family Visit
+                                        {% elif request.leave_type == 'personal' %}
+                                            <i class="fas fa-user text-primary me-2"></i>Personal
+                                        {% elif request.leave_type == 'academic' %}
+                                            <i class="fas fa-graduation-cap text-success me-2"></i>Academic
+                                        {% elif request.leave_type == 'vacation' %}
+                                            <i class="fas fa-plane text-info me-2"></i>Vacation
+                                        {% else %}
+                                            <i class="fas fa-ellipsis-h text-secondary me-2"></i>Other
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ request.reason }}</td>
+                                    <td>{{ request.from_date }}</td>
+                                    <td>{{ request.to_date }}</td>
+                                    <td>
+                                        {% if request.status == 'pending' %}
+                                            <span class="badge bg-warning">Pending</span>
+                                        {% elif request.status == 'approved' %}
+                                            <span class="badge bg-success">Approved</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Rejected</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ request.request_date }}</td>
+                                    <td>{{ request.approved_by or '-' }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No pass requests found</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

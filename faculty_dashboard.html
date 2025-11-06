@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %}Faculty Dashboard - Hostel Management{% endblock %}
+
+{% block content %}
+<div class="dashboard-header text-center">
+    <div class="container">
+        <h2 class="mb-0">
+            <i class="fas fa-chalkboard-teacher me-3"></i>Faculty Dashboard
+        </h2>
+        <p class="mb-0 mt-2">Welcome, {{ session.user_name }}! Manage student activities efficiently.</p>
+    </div>
+</div>
+
+<!-- Pending Pass Requests -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-clock"></i> Pending Pass Requests</h5>
+            </div>
+            <div class="card-body">
+                {% if pending_requests %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Room</th>
+                                    <th>Leave Type</th>
+                                    <th>Reason</th>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>Request Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for request in pending_requests %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ request.name }}</strong><br>
+                                        <small class="text-muted">{{ request.student_id }}</small>
+                                    </td>
+                                    <td>{{ request.room_number }}</td>
+                                    <td>
+                                        {% if request.leave_type == 'medical' %}
+                                            <span class="badge" style="background: linear-gradient(135deg, #ff6b6b, #ee5a52);">
+                                                <i class="fas fa-user-md me-1"></i>Medical
+                                            </span>
+                                        {% elif request.leave_type == 'emergency' %}
+                                            <span class="badge" style="background: linear-gradient(135deg, #feca57, #ff9ff3);">
+                                                <i class="fas fa-exclamation-triangle me-1"></i>Emergency
+                                            </span>
+                                        {% elif request.leave_type == 'family' %}
+                                            <span class="badge" style="background: linear-gradient(135deg, #48cae4, #0077b6);">
+                                                <i class="fas fa-home me-1"></i>Family
+                                            </span>
+                                        {% elif request.leave_type == 'personal' %}
+                                            <span class="badge" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                                                <i class="fas fa-user me-1"></i>Personal
+                                            </span>
+                                        {% elif request.leave_type == 'academic' %}
+                                            <span class="badge" style="background: linear-gradient(135deg, #56ab2f, #a8e6cf);">
+                                                <i class="fas fa-graduation-cap me-1"></i>Academic
+                                            </span>
+                                        {% elif request.leave_type == 'vacation' %}
+                                            <span class="badge" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                                                <i class="fas fa-plane me-1"></i>Vacation
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">
+                                                <i class="fas fa-ellipsis-h me-1"></i>Other
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ request.reason }}</td>
+                                    <td>{{ request.from_date }}</td>
+                                    <td>{{ request.to_date }}</td>
+                                    <td>{{ request.request_date }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ url_for('approve_pass', request_id=request.id, action='approve') }}" 
+                                               class="btn btn-sm btn-success"
+                                               onclick="return confirm('Approve this pass request?')">
+                                                <i class="fas fa-check"></i> Approve
+                                            </a>
+                                            <a href="{{ url_for('approve_pass', request_id=request.id, action='reject') }}" 
+                                               class="btn btn-sm btn-danger"
+                                               onclick="return confirm('Reject this pass request?')">
+                                                <i class="fas fa-times"></i> Reject
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No pending pass requests</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Today's Attendance Summary -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-calendar-check"></i> Today's Attendance Summary</h5>
+            </div>
+            <div class="card-body">
+                {% if attendance_summary %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Name</th>
+                                    <th>Room</th>
+                                    <th>Check-in</th>
+                                    <th>Check-out</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student in attendance_summary %}
+                                <tr>
+                                    <td>{{ student.student_id }}</td>
+                                    <td>{{ student.name }}</td>
+                                    <td>{{ student.room_number }}</td>
+                                    <td>
+                                        {% if student.check_in_time %}
+                                            {{ student.check_in_time }}
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if student.check_out_time %}
+                                            {{ student.check_out_time }}
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if student.status %}
+                                            {% if student.check_in_time and student.check_out_time %}
+                                                <span class="badge bg-success">Complete</span>
+                                            {% elif student.check_in_time %}
+                                                <span class="badge bg-warning">Checked In</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">Not Marked</span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="badge bg-secondary">Not Marked</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No students registered</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

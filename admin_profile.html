@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Profile - Hostel Management{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4 class="mb-0">
+                    <i class="fas fa-user-circle"></i> Admin Profile
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user-shield fa-5x text-primary mb-3"></i>
+                            <h5 class="text-white">{{ admin.name }}</h5>
+                            <span class="badge bg-danger">Administrator</span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-8">
+                        <div class="profile-details">
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Admin ID:</strong></label>
+                                <p class="text-white">{{ admin.admin_id }}</p>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Name:</strong></label>
+                                <p class="text-white">{{ admin.name }}</p>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Email:</strong></label>
+                                <p class="text-white">{{ admin.email or 'Not provided' }}</p>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Account Created:</strong></label>
+                                <p class="text-white">{{ admin.created_at.strftime('%B %d, %Y') if admin.created_at else 'N/A' }}</p>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Role:</strong></label>
+                                <p class="text-white">
+                                    <span class="badge bg-danger">System Administrator</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr class="my-4">
+                
+                <div class="text-center">
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary me-2">
+                        <i class="fas fa-tachometer-alt"></i> Back to Dashboard
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="btn btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Admin Privileges Card -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-key"></i> Admin Privileges</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Manage Students (Add, Edit, Delete)
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Manage Faculty (Add, Remove)
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                View All Pass Requests
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Monitor Attendance Records
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                System Configuration Access
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                Full Database Management
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

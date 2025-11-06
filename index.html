@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="text-center mb-5">
+                <h1 class="display-4">
+                    <i class="fas fa-building"></i> Hostel Management System
+                </h1>
+                <p class="lead">Streamline student passes and attendance with modern technology</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card feature-card h-100">
+                        <div class="card-body">
+                            <i class="fas fa-user-graduate"></i>
+                            <h5 class="card-title">Student Portal</h5>
+                            <p class="card-text">Request passes, mark attendance, and track your hostel activities</p>
+                            <div class="d-grid">
+                                <a href="{{ url_for('student_login') }}" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-sign-in-alt"></i> Student Login
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card feature-card h-100">
+                        <div class="card-body">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <h5 class="card-title">Faculty Portal</h5>
+                            <p class="card-text">Manage student requests, monitor attendance, and oversee operations</p>
+                            <div class="d-grid">
+                                <a href="{{ url_for('faculty_login') }}" class="btn btn-success btn-lg">
+                                    <i class="fas fa-user-tie"></i> Faculty Login
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <div class="card" style="background: rgba(255, 255, 255, 0.1);">
+                    <div class="card-body">
+                        <h6 class="text-white mb-3">
+                            <i class="fas fa-user-plus"></i> New to the system?
+                        </h6>
+                        <a href="{{ url_for('register') }}" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-rocket"></i> Register Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

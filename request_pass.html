@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Request Pass - Hostel Management{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    <i class="fas fa-paper-plane"></i> Request Pass
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-4">
+                        <label for="leave_type" class="form-label">
+                            <i class="fas fa-tags"></i> Type of Leave
+                        </label>
+                        <select class="form-select" id="leave_type" name="leave_type" required>
+                            <option value="">Select leave type...</option>
+                            <option value="medical">Medical Leave</option>
+                            <option value="emergency">Emergency Leave</option>
+                            <option value="family">Family Visit</option>
+                            <option value="personal">Personal Work</option>
+                            <option value="academic">Academic Purpose</option>
+                            <option value="vacation">Vacation/Holiday</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="reason" class="form-label">
+                            <i class="fas fa-comment-alt"></i> Detailed Reason
+                        </label>
+                        <textarea class="form-control" id="reason" name="reason" rows="3" required 
+                                  placeholder="Please provide a detailed reason for your pass request"></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="from_date" class="form-label">From Date</label>
+                            <input type="date" class="form-control" id="from_date" name="from_date" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="to_date" class="form-label">To Date</label>
+                            <input type="date" class="form-control" id="to_date" name="to_date" required>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Note:</strong> Your pass request will be reviewed by faculty.
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('student_dashboard') }}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('from_date').min = today;
+    document.getElementById('to_date').min = today;
+    
+    document.getElementById('from_date').addEventListener('change', function() {
+        document.getElementById('to_date').min = this.value;
+    });
+});
+</script>
+{% endblock %}

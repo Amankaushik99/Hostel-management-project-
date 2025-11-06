@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Student - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4 class="mb-0">
+                    <i class="fas fa-user-edit"></i> Edit Student
+                </h4>
+                <p class="mb-0 mt-2">Update student information</p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="student_id" class="form-label">
+                            <i class="fas fa-id-card"></i> Student ID
+                        </label>
+                        <input type="text" class="form-control" id="student_id" name="student_id" 
+                               value="{{ student.student_id }}" readonly>
+                        <div class="form-text text-muted">Student ID cannot be changed</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-user"></i> Full Name
+                        </label>
+                        <input type="text" class="form-control" id="name" name="name" 
+                               value="{{ student.name }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="room_number" class="form-label">
+                            <i class="fas fa-door-open"></i> Room Number
+                        </label>
+                        <input type="text" class="form-control" id="room_number" name="room_number" 
+                               value="{{ student.room_number }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">
+                            <i class="fas fa-phone"></i> Phone Number
+                        </label>
+                        <input type="tel" class="form-control" id="phone" name="phone" 
+                               value="{{ student.phone or '' }}" placeholder="Enter phone number">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="email" class="form-label">
+                            <i class="fas fa-envelope"></i> Email Address
+                        </label>
+                        <input type="email" class="form-control" id="email" name="email" 
+                               value="{{ student.email or '' }}" placeholder="Enter email address">
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-warning btn-lg">
+                            <i class="fas fa-save"></i> Update Student
+                        </button>
+                        <a href="{{ url_for('manage_students') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to Student List
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Student Info -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6><i class="fas fa-info-circle"></i> Student Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <p class="mb-2">
+                            <strong>Current Room:</strong><br>
+                            <span class="badge bg-info">{{ student.room_number }}</span>
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p class="mb-2">
+                            <strong>Student ID:</strong><br>
+                            <span class="text-primary">{{ student.student_id }}</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info mt-3">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    <strong>Note:</strong> Password changes must be handled separately for security reasons. Contact the student to reset their password if needed.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
