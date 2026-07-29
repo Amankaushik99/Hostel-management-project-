@@ -4,20 +4,20 @@
 
 /* Variables */
 :root {
-  --primary: #85a9e3;
+  --primary: #396cbe;
   --primary-dark: #1d4ed8;
-  --success: #10b981;
+  --success: #50cda3;
   --warning: #f59e0b;
-  --danger: #e7a4a4;
+  --danger: #9a5959;
   --dark: #1e293b;
   --darker: #3f4e72;
   --gray: #64748b;
   --light-gray: #94a3b8;
-  --white: #ffffff;
+  --white: #ded0d0;
   --text-white: #ffffff;
   --text-muted: #6493d5;
   --bg-card: #1e293b;
-  --bg-hover: #5790e0;
+  --bg-hover: #7396c7;
   --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
   --radius: 0.75rem;
   --transition: 300ms ease;
