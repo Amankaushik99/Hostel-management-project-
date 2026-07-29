@@ -3,6 +3,7 @@
 {% block title %}Student Registration - Hostel Management{% endblock %}
 
 {% block content %}
+// This is the student registration page. It allows new students to create an account by providing their details. The form includes fields for Student ID, Full Name, Room Number, Phone Number, Email Address, and Password. Upon submission, the form data will be processed to create a new student account.
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card">
@@ -16,7 +17,7 @@
                 <form method="POST">
                     <div class="mb-3">
                         <label for="student_id" class="form-label">
-                            <i class="fas fa-id-card"></i> Student ID
+                            <i class="fas fa-id-card"></i> Student id
                         </label>
                         <input type="text" class="form-control" id="student_id" name="student_id" 
                                placeholder="e.g., STU003" required>
