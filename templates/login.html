@@ -3,6 +3,7 @@
 {% block title %}Login - Hostel Management{% endblock %}
 
 {% block content %}
+// This is the login page. It allows users to select their role (Student, Faculty, or Admin) and enter their credentials to access the system. The form includes validation to ensure that all required fields are filled out before submission. Additionally, demo credentials are provided for testing purposes.
 <div class="row justify-content-center">
     <div class="col-md-6 col-lg-5">
         <div class="card">
@@ -60,7 +61,7 @@
                 </div>
             </div>
         </div>
-        
+        // This section provides demo credentials for testing purposes. It lists sample user IDs and passwords for students, faculty, and admin users. Users can use these credentials to log in and explore the system without needing to create an account.
         <div class="card mt-4" style="background: rgba(255, 255, 255, 0.1);">
             <div class="card-body text-center">
                 <h6 class="text-white mb-3">
@@ -86,4 +87,5 @@
         </div>
     </div>
 </div>
+// This script ensures that the user selects a role before submitting the form. If the user tries to submit the form without selecting a role, an alert will prompt them to make a selection.
 {% endblock %}
